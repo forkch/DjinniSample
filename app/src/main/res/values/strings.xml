@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DjinniDemo</string>
+    <string name="activity_fibonacci_limit">Enter limit</string>
+    <string name="title_activity_fibonacci_activiy">FibonacciActiviy</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+</resources>

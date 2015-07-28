@@ -1,0 +1,10 @@
+
+fibonacci_callback_djinni = interface +j {
+    reportProgress(progress : string);
+}
+
+fibonacci_engine_djinni = interface +c {
+    computeFibonacci(limit : i64) : i64;
+        static create_with_callback(callback: fibonacci_callback_djinni): fibonacci_engine_djinni;
+
+}

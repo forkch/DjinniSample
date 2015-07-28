@@ -1,0 +1,94 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+apply plugin: 'com.android.model.application'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+model {
+    android {
+        compileSdkVersion = 22
+        buildToolsVersion ="23.0.0 rc3"
+
+        defaultConfig.with {
+            applicationId = "ch.fork.djinnisample"
+            minSdkVersion.apiLevel      = 19
+            targetSdkVersion.apiLevel   = 22
+        }
+    }
+    /*
+     * native build settings
+     */
+    android.ndk {
+        moduleName = "fibonacci-jni"
+//        toolchain = "clang"
+//        toolchainVersion = "3.5"
+        /*
+         * Other ndk flags configurable here are
+         * cppFlags += "-fno-rtti"
+         * cppFlags += "-fno-exceptions"
+         *ldLibs    = ["android", "log"]
+         * stl       = "system"
+         */
+        stl       = "c++_static"
+        cppFlags += "-I${file("src/main/jni/support-lib")}".toString()
+        cppFlags += "-I${file("src/main/jni/djinni_generated/cpp")}".toString()
+        cppFlags += "-I${file("src/main/jni/djinni_generated/jni")}".toString()
+        cppFlags += "-DGXX_EXPERIMENTAL_CXX0X"
+        cppFlags += "-frtti"
+        cppFlags += "-std=c++11"
+        cppFlags += "-fexceptions"
+        cppFlags += "-pthread"
+//        ldLibs    = ["android", "log"]
+    }
+    android.buildTypes {
+        release {
+            isMinifyEnabled = false
+
+        }
+    }
+    android.productFlavors {
+        // for detailed abiFilter descriptions, refer to "Supported ABIs" @
+        // https://developer.android.com/ndk/guides/abis.html#sa
+        create("arm") {
+            ndk.abiFilters += "armeabi"
+        }
+        create("arm7") {
+            ndk.abiFilters += "armeabi-v7a"
+        }
+        create("arm8") {
+            ndk.abiFilters += "arm64-v8a"
+        }
+        create("x86") {
+            ndk.abiFilters += "x86"
+        }
+        create("x86-64") {
+            ndk.abiFilters += "x86_64"
+        }
+        create("mips") {
+            ndk.abiFilters += "mips"
+        }
+        create("mips-64") {
+            ndk.abiFilters += "mips64"
+        }
+        // To include all cpu architectures, leaves abiFilters empty
+        create("all")
+    }
+
+    android.sources {
+        main {
+            jni {
+                source {
+                    srcDirs 'src/main/jni'
+                }
+            }
+        }
+    }
+}
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.jakewharton.timber:timber:3.1.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
+}
