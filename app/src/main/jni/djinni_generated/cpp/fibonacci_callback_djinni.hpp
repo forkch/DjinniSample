@@ -3,7 +3,8 @@
 
 #pragma once
 
-#include <string>
+#include <cstdint>
+#include <vector>
 
 namespace Fibonacci {
 
@@ -11,7 +12,7 @@ class FibonacciCallbackDjinni {
 public:
     virtual ~FibonacciCallbackDjinni() {}
 
-    virtual void reportProgress(const std::string & progress) = 0;
+    virtual void reportProgress(const std::vector<int64_t> & fibonacciSequenceChunk) = 0;
 };
 
 }  // namespace Fibonacci

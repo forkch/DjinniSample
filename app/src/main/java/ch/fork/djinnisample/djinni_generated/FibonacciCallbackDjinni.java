@@ -3,6 +3,8 @@
 
 package ch.fork.djinnisample.djinni_generated;
 
+import java.util.ArrayList;
+
 public abstract class FibonacciCallbackDjinni {
-    public abstract void reportProgress(String progress);
+    public abstract void reportProgress(ArrayList<Long> fibonacciSequenceChunk);
 }

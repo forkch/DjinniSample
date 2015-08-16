@@ -14,7 +14,7 @@ class FibonacciEngineDjinni {
 public:
     virtual ~FibonacciEngineDjinni() {}
 
-    virtual int64_t computeFibonacci(int64_t limit) = 0;
+    virtual int64_t computeFibonacci(int64_t amount) = 0;
 
     static std::shared_ptr<FibonacciEngineDjinni> create_with_callback(const std::shared_ptr<FibonacciCallbackDjinni> & callback);
 };

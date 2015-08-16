@@ -1,9 +1,8 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
 apply plugin: 'com.android.model.application'
+apply plugin: 'me.tatarka.retrolambda'
 
-sourceCompatibility = 1.6
-targetCompatibility = 1.6
 model {
     android {
         compileSdkVersion = 22
@@ -30,9 +29,11 @@ model {
          * stl       = "system"
          */
         stl       = "c++_static"
+        cppFlags += "-I${file("src/main/jni")}".toString()
         cppFlags += "-I${file("src/main/jni/support-lib")}".toString()
         cppFlags += "-I${file("src/main/jni/djinni_generated/cpp")}".toString()
         cppFlags += "-I${file("src/main/jni/djinni_generated/jni")}".toString()
+        cppFlags += "-latomic"
         cppFlags += "-DGXX_EXPERIMENTAL_CXX0X"
         cppFlags += "-frtti"
         cppFlags += "-std=c++11"
@@ -42,7 +43,7 @@ model {
     }
     android.buildTypes {
         release {
-            isMinifyEnabled = false
+            minifyEnabled = false
 
         }
     }
@@ -83,6 +84,10 @@ model {
             }
         }
     }
+    android.compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 
@@ -91,4 +96,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.jakewharton.timber:timber:3.1.0'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'io.reactivex:rxjava:1.0.13'
+    compile 'io.reactivex:rxandroid:0.25.0'
 }

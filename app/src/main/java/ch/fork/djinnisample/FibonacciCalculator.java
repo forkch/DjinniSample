@@ -1,7 +1,12 @@
 package ch.fork.djinnisample;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.fork.djinnisample.djinni_generated.FibonacciCallbackDjinni;
 import ch.fork.djinnisample.djinni_generated.FibonacciEngineDjinni;
+import rx.Observable;
+import rx.Subscriber;
 import timber.log.Timber;
 
 /**
@@ -13,14 +18,24 @@ public class FibonacciCalculator {
         System.loadLibrary("fibonacci-jni");
     }
 
-    public long computeFibonacci(long limit) {
-        final FibonacciEngineDjinni fibonacciEngineDjinni = FibonacciEngineDjinni.createWithCallback(new FibonacciCallbackDjinni() {
-            @Override
-            public void reportProgress(String progress) {
-                Timber.i(progress);
-            }
-        });
+    public Observable<List<Long>> computeFibonacci(final long amount) {
 
-        return fibonacciEngineDjinni.computeFibonacci(limit);
+        Observable<List<Long>> myObservable = Observable.create(
+                new Observable.OnSubscribe<List<Long>>() {
+                    @Override
+                    public void call(final Subscriber<? super List<Long>> sub) {
+
+                        final FibonacciEngineDjinni fibonacciEngineDjinni = FibonacciEngineDjinni.createWithCallback(new FibonacciCallbackDjinni() {
+                            @Override
+                            public void reportProgress(ArrayList<Long> fibonacciSequenceChunk) {
+                                sub.onNext(fibonacciSequenceChunk);
+                            }
+                        });
+                        fibonacciEngineDjinni.computeFibonacci(amount);
+                    }
+                }
+        );
+        return myObservable;
     }
+
 }

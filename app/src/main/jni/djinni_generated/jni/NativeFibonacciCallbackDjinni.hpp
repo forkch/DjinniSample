@@ -31,7 +31,7 @@ private:
         JavaProxy(JniType j);
         ~JavaProxy();
 
-        void reportProgress(const std::string & progress) override;
+        void reportProgress(const std::vector<int64_t> & fibonacciSequenceChunk) override;
 
     private:
         using ::djinni::JavaProxyCacheEntry::getGlobalRef;
@@ -40,7 +40,7 @@ private:
     };
 
     const ::djinni::GlobalRef<jclass> clazz { ::djinni::jniFindClass("ch/fork/djinnisample/djinni_generated/FibonacciCallbackDjinni") };
-    const jmethodID method_reportProgress { ::djinni::jniGetMethodID(clazz.get(), "reportProgress", "(Ljava/lang/String;)V") };
+    const jmethodID method_reportProgress { ::djinni::jniGetMethodID(clazz.get(), "reportProgress", "(Ljava/util/ArrayList;)V") };
 };
 
 }  // namespace Fibonacci

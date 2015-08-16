@@ -6,11 +6,11 @@ package ch.fork.djinnisample.djinni_generated;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class FibonacciEngineDjinni {
-    public abstract long computeFibonacci(long limit);
+    public abstract long computeFibonacci(long amount);
 
     public static native FibonacciEngineDjinni createWithCallback(FibonacciCallbackDjinni callback);
 
-    public static final class CppProxy extends FibonacciEngineDjinni
+    private static final class CppProxy extends FibonacciEngineDjinni
     {
         private final long nativeRef;
         private final AtomicBoolean destroyed = new AtomicBoolean(false);
@@ -34,11 +34,11 @@ public abstract class FibonacciEngineDjinni {
         }
 
         @Override
-        public long computeFibonacci(long limit)
+        public long computeFibonacci(long amount)
         {
             assert !this.destroyed.get() : "trying to use a destroyed object";
-            return native_computeFibonacci(this.nativeRef, limit);
+            return native_computeFibonacci(this.nativeRef, amount);
         }
-        private native long native_computeFibonacci(long _nativeRef, long limit);
+        private native long native_computeFibonacci(long _nativeRef, long amount);
     }
 }

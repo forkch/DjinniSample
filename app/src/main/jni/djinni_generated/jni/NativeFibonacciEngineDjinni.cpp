@@ -21,12 +21,12 @@ CJNIEXPORT void JNICALL Java_ch_fork_djinnisample_djinni_1generated_FibonacciEng
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
 
-CJNIEXPORT jlong JNICALL Java_ch_fork_djinnisample_djinni_1generated_FibonacciEngineDjinni_00024CppProxy_native_1computeFibonacci(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jlong j_limit)
+CJNIEXPORT jlong JNICALL Java_ch_fork_djinnisample_djinni_1generated_FibonacciEngineDjinni_00024CppProxy_native_1computeFibonacci(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jlong j_amount)
 {
     try {
         DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
         const auto& ref = ::djinni::CppProxyHandle<::Fibonacci::FibonacciEngineDjinni>::get(nativeRef);
-        auto r = ref->computeFibonacci(::djinni::I64::toCpp(jniEnv, j_limit));
+        auto r = ref->computeFibonacci(::djinni::I64::toCpp(jniEnv, j_amount));
         return ::djinni::release(::djinni::I64::fromCpp(jniEnv, r));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, 0 /* value doesn't matter */)
 }
