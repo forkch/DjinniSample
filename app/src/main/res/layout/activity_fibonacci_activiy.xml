@@ -32,17 +32,6 @@
             android:layout_row="2"
             android:text="Compute" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:text="Highest Fibonacci number" />
-
-        <TextView
-            android:id="@+id/tvResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1" />
     </GridLayout>
 
     <ListView

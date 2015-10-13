@@ -14,8 +14,6 @@ import butterknife.OnClick;
 
 public class FibonacciActivity extends AppCompatActivity implements FibonacciView {
 
-    @Bind(R.id.tvResult)
-    TextView tvResult;
     @Bind(R.id.etAmount)
     TextView etAmount;
     @Bind(R.id.lvSequence)
