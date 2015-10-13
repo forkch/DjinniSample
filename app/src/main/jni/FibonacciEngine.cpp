@@ -26,7 +26,7 @@ namespace Fibonacci {
 
         std::vector<int64_t> chunk;
 
-        for (int64_t i = 0; i <= amount; i++) {
+        for (int64_t i = 0; i < amount; i++) {
             total = a + b;
             a = b;
             b = total;
