@@ -1,13 +1,6 @@
 package ch.fork.djinnisample;
 
-import java.sql.Time;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -29,21 +22,13 @@ public class FibonacciPresenter {
     public void computeFibonacci(int amount) {
         fibonacciView.clearSequence();
         fibonacciCalculator.computeFibonacci(amount)
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Func1<List<Long>, List<Long>>() {
-                    @Override
-                    public List<Long> call(List<Long> longs) {
-                        return longs;
-                    }
-                })
-                .subscribe(new Action1<List<Long>>() {
-                               @Override
-                               public void call(List<Long> sequenceChunk) {
-                                   Timber.i("received new chunk: " + sequenceChunk.toString());
-                                   fibonacciView.nextChunkComputed(sequenceChunk);
-                               }
-                           }
+                .map(longs -> longs)
+                .subscribe(sequenceChunk -> {
+                            Timber.i("received new chunk: " + sequenceChunk.toString());
+                            fibonacciView.nextChunkComputed(sequenceChunk);
+                        }
                 );
     }
 }

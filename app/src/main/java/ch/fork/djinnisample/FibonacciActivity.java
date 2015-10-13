@@ -1,7 +1,7 @@
 package ch.fork.djinnisample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,7 +24,6 @@ public class FibonacciActivity extends AppCompatActivity implements FibonacciVie
 
     @OnClick(R.id.btCompute)
     public void computeFibonacci() {
-        final FibonacciCalculator fibonacciCalculator = new FibonacciCalculator();
         presenter.computeFibonacci(30);
     }
 
@@ -36,7 +35,7 @@ public class FibonacciActivity extends AppCompatActivity implements FibonacciVie
         ButterKnife.bind(this);
 
         presenter = new FibonacciPresenter(this);
-        adapter = new ArrayAdapter<Long>(this, android.R.layout.simple_list_item_1);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         lvSequence.setAdapter(adapter);
     }
 

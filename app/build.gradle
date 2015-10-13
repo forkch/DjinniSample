@@ -1,17 +1,15 @@
-import org.apache.tools.ant.taskdefs.condition.Os
-
+//apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.android.model.application'
-apply plugin: 'me.tatarka.retrolambda'
 
 model {
     android {
-        compileSdkVersion = 22
-        buildToolsVersion ="23.0.0 rc3"
+        compileSdkVersion = 23
+        buildToolsVersion ="23.0.1"
 
         defaultConfig.with {
             applicationId = "ch.fork.djinnisample"
             minSdkVersion.apiLevel      = 19
-            targetSdkVersion.apiLevel   = 22
+            targetSdkVersion.apiLevel   = 23
         }
     }
     /*
@@ -21,13 +19,7 @@ model {
         moduleName = "fibonacci-jni"
 //        toolchain = "clang"
 //        toolchainVersion = "3.5"
-        /*
-         * Other ndk flags configurable here are
-         * cppFlags += "-fno-rtti"
-         * cppFlags += "-fno-exceptions"
-         *ldLibs    = ["android", "log"]
-         * stl       = "system"
-         */
+//        ldLibs    = ["android", "log"]
         stl       = "c++_static"
         cppFlags += "-I${file("src/main/jni")}".toString()
         cppFlags += "-I${file("src/main/jni/support-lib")}".toString()
@@ -39,7 +31,6 @@ model {
         cppFlags += "-std=c++11"
         cppFlags += "-fexceptions"
         cppFlags += "-pthread"
-//        ldLibs    = ["android", "log"]
     }
     android.buildTypes {
         release {
@@ -53,25 +44,25 @@ model {
         create("arm") {
             ndk.abiFilters += "armeabi"
         }
-        create("arm7") {
-            ndk.abiFilters += "armeabi-v7a"
-        }
-        create("arm8") {
-            ndk.abiFilters += "arm64-v8a"
-        }
-        create("x86") {
-            ndk.abiFilters += "x86"
-        }
-        create("x86-64") {
-            ndk.abiFilters += "x86_64"
-        }
-        create("mips") {
-            ndk.abiFilters += "mips"
-        }
-        create("mips-64") {
-            ndk.abiFilters += "mips64"
-        }
-        // To include all cpu architectures, leaves abiFilters empty
+//        create("arm7") {
+//            ndk.abiFilters += "armeabi-v7a"
+//        }
+//        create("arm8") {
+//            ndk.abiFilters += "arm64-v8a"
+//        }
+//        create("x86") {
+//            ndk.abiFilters += "x86"
+//        }
+//        create("x86-64") {
+//            ndk.abiFilters += "x86_64"
+//        }
+//        create("mips") {
+//            ndk.abiFilters += "mips"
+//        }
+//        create("mips-64") {
+//            ndk.abiFilters += "mips64"
+//        }
+//        // To include all cpu architectures, leaves abiFilters empty
         create("all")
     }
 
@@ -85,17 +76,17 @@ model {
         }
     }
     android.compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 }
 
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.jakewharton.timber:timber:3.1.0'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'io.reactivex:rxjava:1.0.13'
-    compile 'io.reactivex:rxandroid:0.25.0'
+    compile 'io.reactivex:rxjava:1.0.14'
+    compile 'io.reactivex:rxandroid:1.0.1'
 }

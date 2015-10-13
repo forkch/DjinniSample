@@ -1,10 +1,11 @@
-
-fibonacci_callback_djinni = interface +j {
-    reportProgress(fibonacciSequenceChunk : list<i64>);
-}
-
+# definitition of the C++ interface to be called from Java
 fibonacci_engine_djinni = interface +c {
-    computeFibonacci(amount : i64) : i64;
-        static create_with_callback(callback: fibonacci_callback_djinni): fibonacci_engine_djinni;
-
+      # factory method to create a fibonacci engine with a callback to Java
+      static create_with_callback(callback: fibonacci_callback_djinni): fibonacci_engine_djinni;
+      computeFibonacci(amount : i64) : i64;
+              
+}
+# definitition of the Java callback interface
+fibonacci_callback_djinni = interface +j {
+  reportProgress(fibonacciSequenceChunk : list<i64>);
 }

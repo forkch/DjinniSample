@@ -7,7 +7,6 @@ import ch.fork.djinnisample.djinni_generated.FibonacciCallbackDjinni;
 import ch.fork.djinnisample.djinni_generated.FibonacciEngineDjinni;
 import rx.Observable;
 import rx.Subscriber;
-import timber.log.Timber;
 
 /**
  * Created with love by fork on 28.07.15.
