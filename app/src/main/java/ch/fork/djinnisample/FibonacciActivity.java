@@ -16,6 +16,8 @@ public class FibonacciActivity extends AppCompatActivity implements FibonacciVie
 
     @Bind(R.id.tvResult)
     TextView tvResult;
+    @Bind(R.id.etAmount)
+    TextView etAmount;
     @Bind(R.id.lvSequence)
     ListView lvSequence;
     private FibonacciPresenter presenter;
@@ -24,7 +26,7 @@ public class FibonacciActivity extends AppCompatActivity implements FibonacciVie
 
     @OnClick(R.id.btCompute)
     public void computeFibonacci() {
-        presenter.computeFibonacci(30);
+        presenter.computeFibonacci(Long.parseLong(etAmount.getText().toString()));
     }
 
     @Override

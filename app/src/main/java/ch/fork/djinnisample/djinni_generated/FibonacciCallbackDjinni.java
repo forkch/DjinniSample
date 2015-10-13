@@ -5,6 +5,7 @@ package ch.fork.djinnisample.djinni_generated;
 
 import java.util.ArrayList;
 
+/** definitition of the Java callback interface */
 public abstract class FibonacciCallbackDjinni {
     public abstract void reportProgress(ArrayList<Long> fibonacciSequenceChunk);
 }

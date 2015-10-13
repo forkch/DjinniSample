@@ -8,6 +8,7 @@
 
 namespace Fibonacci {
 
+/** definitition of the Java callback interface */
 class FibonacciCallbackDjinni {
 public:
     virtual ~FibonacciCallbackDjinni() {}

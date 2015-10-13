@@ -29,6 +29,7 @@ public class FibonacciCalculator {
                             public void reportProgress(ArrayList<Long> fibonacciSequenceChunk) {
                                 sub.onNext(fibonacciSequenceChunk);
                             }
+
                         });
                         fibonacciEngineDjinni.computeFibonacci(amount);
                     }

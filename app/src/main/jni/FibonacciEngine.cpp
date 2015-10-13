@@ -3,8 +3,7 @@
 //
 
 #include <vector>
-#include "FibonacciEngine.h"
-#include "djinni_generated/cpp/fibonacci_engine_djinni.hpp"
+#include "FibonacciEngine.hpp"
 #include "djinni_generated/cpp/fibonacci_callback_djinni.hpp"
 
 #include <chrono>
@@ -23,15 +22,15 @@ namespace Fibonacci {
 
     int64_t FibonacciEngine::computeFibonacci(int64_t amount) {
 
-        int input(0), Alpha(0), Beta(1), Total(1);
+        int64_t input(0), a(0), b(1), total(1);
 
         std::vector<int64_t> chunk;
 
-        for (int i = 0; i <= amount; i++) {
-            Total = Alpha + Beta;
-            Alpha = Beta;
-            Beta = Total;
-            chunk.push_back(Total);
+        for (int64_t i = 0; i <= amount; i++) {
+            total = a + b;
+            a = b;
+            b = total;
+            chunk.push_back(total);
             if (chunk.size() == 10) {
                 m_callback->reportProgress(chunk);
                 chunk.clear();
@@ -41,6 +40,6 @@ namespace Fibonacci {
 
         }
         m_callback->reportProgress(chunk);
-        return Total;
+        return total;
     }
 }

@@ -19,6 +19,8 @@
             android:id="@+id/etAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:inputType="number"
             android:layout_columnSpan="2"
             android:layout_row="0" />
 

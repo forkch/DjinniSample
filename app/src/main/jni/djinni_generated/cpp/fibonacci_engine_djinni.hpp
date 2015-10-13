@@ -10,13 +10,15 @@ namespace Fibonacci {
 
 class FibonacciCallbackDjinni;
 
+/** definitition of the C++ interface to be called from Java */
 class FibonacciEngineDjinni {
 public:
     virtual ~FibonacciEngineDjinni() {}
 
-    virtual int64_t computeFibonacci(int64_t amount) = 0;
-
+    /** factory method to create a fibonacci engine with a callback to Java */
     static std::shared_ptr<FibonacciEngineDjinni> create_with_callback(const std::shared_ptr<FibonacciCallbackDjinni> & callback);
+
+    virtual int64_t computeFibonacci(int64_t amount) = 0;
 };
 
 }  // namespace Fibonacci

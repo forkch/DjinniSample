@@ -5,9 +5,11 @@ package ch.fork.djinnisample.djinni_generated;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/** definitition of the C++ interface to be called from Java */
 public abstract class FibonacciEngineDjinni {
     public abstract long computeFibonacci(long amount);
 
+    /** factory method to create a fibonacci engine with a callback to Java */
     public static native FibonacciEngineDjinni createWithCallback(FibonacciCallbackDjinni callback);
 
     private static final class CppProxy extends FibonacciEngineDjinni

@@ -1,6 +1,9 @@
 package ch.fork.djinnisample;
 
+import java.util.List;
+
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -19,16 +22,19 @@ public class FibonacciPresenter {
     }
 
 
-    public void computeFibonacci(int amount) {
+    public void computeFibonacci(final long amount) {
         fibonacciView.clearSequence();
         fibonacciCalculator.computeFibonacci(amount)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(longs -> longs)
-                .subscribe(sequenceChunk -> {
-                            Timber.i("received new chunk: " + sequenceChunk.toString());
-                            fibonacciView.nextChunkComputed(sequenceChunk);
-                        }
+                .subscribe(new Action1<List<Long>>() {
+                               @Override
+                               public void call(List<Long> sequenceChunk) {
+                                   Timber.i("received new chunk: " + sequenceChunk.toString());
+                                   fibonacciView.nextChunkComputed(sequenceChunk);
+                               }
+                           }
+
                 );
     }
 }
