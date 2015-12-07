@@ -71,16 +71,6 @@ model {
 //        // To include all cpu architectures, leaves abiFilters empty
         create("all")
     }
-
-    android.sources {
-        main {
-            jni {
-                source {
-                    srcDirs 'src/main/jni'
-                }
-            }
-        }
-    }
 }
 
 
