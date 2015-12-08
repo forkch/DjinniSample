@@ -3,6 +3,25 @@ apply plugin: 'com.android.model.application'
 
 def djinniGeneratedSourceDir = new File(buildDir, "djinni_generated")
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def djinniDir = properties.getProperty('djinni.dir')
+
+task runDjinni(type: Exec) {
+    executable "${djinniDir}/src/run"
+    args += ["--java-out", "${djinniGeneratedSourceDir}/java/ch/fork/djinnisample"]
+    args += ["--java-package", "ch.fork.djinnisample"]
+    args += ["--ident-java-field", "mFooBar"]
+    args += ["--cpp-out", "${djinniGeneratedSourceDir}/cpp"]
+    args += ["--cpp-namespace", "Fibonacci"]
+    args += ["--jni-namespace", "Fibonacci"]
+    args += ["--jni-out", "${djinniGeneratedSourceDir}/jni"]
+    args += ["--ident-jni-class", "NativeFooBar"]
+    args += ["--ident-jni-file", "NativeFooBar"]
+    args += ["--idl", "fibonacci.djinni"]
+}     
+
+task copyDjinniSupportLib(type: Copy) {
 model {
     android {
         compileSdkVersion = 23
