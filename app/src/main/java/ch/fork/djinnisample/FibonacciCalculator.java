@@ -3,8 +3,8 @@ package ch.fork.djinnisample;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.fork.djinnisample.djinni_generated.FibonacciCallbackDjinni;
-import ch.fork.djinnisample.djinni_generated.FibonacciEngineDjinni;
+import ch.fork.djinnisample.FibonacciCallbackDjinni;
+import ch.fork.djinnisample.FibonacciEngineDjinni;
 import rx.Observable;
 import rx.Subscriber;
 
