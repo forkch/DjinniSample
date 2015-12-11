@@ -6,7 +6,6 @@
 #define DJINNIDEMO_FIBONACCIENGINE_H
 
 #include "fibonacci_engine_djinni.hpp"
-#include "djinni_generated/cpp/fibonacci_engine_djinni.hpp"
 
 
 namespace Fibonacci {

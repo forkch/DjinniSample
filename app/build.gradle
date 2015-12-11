@@ -1,6 +1,34 @@
 //apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.android.model.application'
 
+def djinniGeneratedSourceDir = new File(buildDir, "djinni_generated")
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def djinniDir = properties.getProperty('djinni.dir')
+
+task runDjinni(type: Exec) {
+    executable "${djinniDir}/src/run"
+    args += ["--java-out", "${djinniGeneratedSourceDir}/java/ch/fork/djinnisample"]
+    args += ["--java-package", "ch.fork.djinnisample"]
+    args += ["--ident-java-field", "mFooBar"]
+    args += ["--cpp-out", "${djinniGeneratedSourceDir}/cpp"]
+    args += ["--cpp-namespace", "Fibonacci"]
+    args += ["--jni-namespace", "Fibonacci"]
+    args += ["--jni-out", "${djinniGeneratedSourceDir}/jni"]
+    args += ["--ident-jni-class", "NativeFooBar"]
+    args += ["--ident-jni-file", "NativeFooBar"]
+    args += ["--idl", "fibonacci.djinni"]
+}     
+
+def djinniSupportDir = new File(buildDir, "djinni_src/support-lib")
+task copyDjinniSupportLib(type: Copy) {
+    from "${djinniDir}/support-lib"
+    destinationDir djinniSupportDir
+    include "*.cpp" include "*.hpp"
+    include "jni/*.cpp" include "jni/*.hpp"
+}
+
 model {
     android {
         compileSdkVersion = 23
@@ -28,8 +56,10 @@ model {
 //        ldLibs    = ["android", "log"]
         stl       = "c++_static"
         cppFlags += "-I${file("src/main/jni")}".toString()
+        cppFlags += "-I${djinniSupportDir}".toString()
+        cppFlags += "-I${djinniSupportDir}/jni".toString()
         cppFlags += "-I${file("src/main/jni/support-lib")}".toString()
-        cppFlags += "-I${file("src/main/jni/djinni_generated/cpp")}".toString()
+        cppFlags += "-I${djinniGeneratedSourceDir}/cpp".toString()
         cppFlags += "-I${file("src/main/jni/djinni_generated/jni")}".toString()
         cppFlags += "-latomic"
         cppFlags += "-DGXX_EXPERIMENTAL_CXX0X"
@@ -77,6 +107,14 @@ model {
             jni {
                 source {
                     srcDirs 'src/main/jni'
+                    srcDirs += djinniGeneratedSourceDir
+                    srcDirs += djinniSupportDir
+                }
+            }
+            java {
+                source {
+                    srcDirs 'src/main/java'
+                    srcDirs += djinniGeneratedSourceDir
                 }
             }
         }

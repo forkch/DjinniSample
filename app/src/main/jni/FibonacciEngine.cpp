@@ -4,7 +4,7 @@
 
 #include <vector>
 #include "FibonacciEngine.hpp"
-#include "djinni_generated/cpp/fibonacci_callback_djinni.hpp"
+#include "fibonacci_callback_djinni.hpp"
 
 #include <chrono>
 #include <thread>
